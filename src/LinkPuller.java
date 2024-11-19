@@ -12,7 +12,9 @@ public class LinkPuller implements ActionListener{
     private JPanel panel;
     private JButton searchButton;
     private JTextField urlInput;
-    private JTextArea termInput;
+    private JTextField termInput;
+    private JPanel panel2;
+    private JTextArea results;
 
     String URL = new String();
     String searchTerm = new String();
@@ -24,15 +26,21 @@ public class LinkPuller implements ActionListener{
     public LinkPuller() {
         frame = new JFrame("Link Puller -- Kasen");
         panel = new JPanel(new BorderLayout());
+        panel2 = new JPanel(new GridLayout(2,1));
 
         searchButton = new JButton("Search");
         searchButton.addActionListener(this);
         urlInput = new JTextField("Replace this text with a URL");
-        termInput = new JTextArea("Replace this text with a search term");
+        termInput = new JTextField("Replace this text with a search term");
+        results = new JTextArea("Results go here:");
 
         panel.add(searchButton, BorderLayout.SOUTH);
-        panel.add(urlInput, BorderLayout.NORTH);
-        panel.add(termInput, BorderLayout.CENTER);
+
+        panel.add(panel2, BorderLayout.NORTH);
+        panel2.add(urlInput);
+        panel2.add(termInput);
+
+        panel.add(results, BorderLayout.CENTER);
 
         frame.add(panel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -70,9 +78,10 @@ public class LinkPuller implements ActionListener{
                         String miniLine = line.substring(realStart);
                         int end = miniLine.indexOf(">") -1;
                         String link = miniLine.substring(0,end);
+                        // make an if statment that chekc if the link has the term
                         System.out.println(c + ". " + link);
-//                        termInput.append("\n" + "\n" + "Results below:" + "\n");
-                        termInput.append("\n" + link );
+                        results.append("\n" + link );
+                        // end if statement here
 
                         c++;
                         realStart = miniLine.indexOf(searchTerm,end);

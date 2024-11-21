@@ -69,6 +69,7 @@ public class LinkPuller implements ActionListener{
             BufferedReader reader = new BufferedReader(
                     new InputStreamReader(url.openStream())
             );
+            //
             String line;
             int c = 1;
             while ((line = reader.readLine()) != null) {
